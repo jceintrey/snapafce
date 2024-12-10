@@ -20,7 +20,7 @@ export class FaceSnapServices{
          'https://media.istockphoto.com/id/1996377443/fr/photo/diverse-friends-enjoying-sunny-mountain-hike.webp?s=2048x2048&w=is&k=20&c=sg_bAXza-Bn6eNZqJEoINjYU-zwNSBhNlZAkeW1bRA0=',
          new Date(),
          64
-         ),
+         ).withLocation("à la montagne"),
          new FaceSnap(
            'Un bon repas',
            'Que c\'est bon',
@@ -33,4 +33,24 @@ export class FaceSnapServices{
          getFaceSnaps(): FaceSnap[] {
           return [...this.faceSnaps];
          }
+
+         snapFaceSnapById(faceSnapId: string): void {
+            const foundFaceSnap = this.faceSnaps.find(faceSnap => faceSnap.id === faceSnapId);
+            if (!foundFaceSnap) {
+              throw new Error('FaceSnap not found!');
+            }
+            foundFaceSnap.addSnap();
+
+        }
+        unSnapFaceSnapById(faceSnapId: string): void {
+            const foundFaceSnap = this.faceSnaps.find(faceSnap => faceSnap.id === faceSnapId);
+            if (!foundFaceSnap) {
+              throw new Error('FaceSnap not found!');
+            }
+            foundFaceSnap.removeSnap();
+
+        }
+
+
+
 }

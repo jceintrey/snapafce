@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FaceSnap } from '../models/face-snaps';
 import { CurrencyPipe, DatePipe, DecimalPipe, NgClass, NgStyle, PercentPipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
+import { FaceSnapServices } from '../services/face-snaps.services';
 
 @Component({
   selector: 'app-face-snap',
@@ -21,6 +22,8 @@ hasSnaped!: Boolean;
 snapButtonText!: String;
 
 
+constructor(private faceSnapsService: FaceSnapServices){}
+
 ngOnInit(): void {
 
   this.hasSnaped = false;
@@ -32,15 +35,25 @@ onSnap(): void {
   Si l'utilisateur a déjà liké
   */
   if (this.hasSnaped){
-    this.faceSnap.removeSnap();
-    this.hasSnaped = false;
-    this.snapButtonText = "Oh Snaps!"
+    this.unSnap();
   }
   else
   {
-    this.faceSnap.addSnap();
-    this.hasSnaped = true;
-    this.snapButtonText = "Oups, un Snap!"
+    this.snap();
   }
 }
+unSnap() {
+  /*this.faceSnap.removeSnap();*/
+  this.faceSnapsService.unSnapFaceSnapById(this.faceSnap.id);
+  this.hasSnaped = false;
+  this.snapButtonText = "Oh Snaps!"
+}
+
+snap(){
+  this.faceSnapsService.snapFaceSnapById(this.faceSnap.id);
+  this.hasSnaped = true;
+  this.snapButtonText = "Oups, un Snap!"
+}
+
+
 }
