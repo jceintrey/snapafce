@@ -44,13 +44,13 @@ onSnap(): void {
 }
 unSnap() {
   /*this.faceSnap.removeSnap();*/
-  this.faceSnapsService.unSnapFaceSnapById(this.faceSnap.id);
+  this.faceSnapsService.snapFaceSnapById(this.faceSnap.id,'unsnap')
   this.hasSnaped = false;
   this.snapButtonText = "Oh Snaps!"
 }
 
 snap(){
-  this.faceSnapsService.snapFaceSnapById(this.faceSnap.id);
+  this.faceSnapsService.snapFaceSnapById(this.faceSnap.id,'snap')
   this.hasSnaped = true;
   this.snapButtonText = "Oups, un Snap!"
 }
